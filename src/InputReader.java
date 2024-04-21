@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -15,8 +16,18 @@ public class InputReader
         scanner = new Scanner(System.in);
     }
 
-    public String getInput()
+    public String getStringInput()
     {
         return scanner.nextLine();
     }
+
+    public int getIntInput() {
+        int input = scanner.nextInt();
+        scanner.nextLine();
+        return input;
+    }
+
+
 }
+
+
