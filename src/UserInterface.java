@@ -58,7 +58,7 @@ public class UserInterface {
                     break;
                 case "3":
                     updateCustomerDetails();
-                    //Display Customer Details
+                    //UPDATE!!/Display Customer Details
                     break;
                 case "4":
                     //Open Account
@@ -176,39 +176,39 @@ public class UserInterface {
         while (!exit) {
             System.out.println("Update Customer Details");
             System.out.println("Select detail to update: ");
-            System.out.println("1. Update Name - " + customer.getName());
+            System.out.println("1. Update Name - " + customer.getName());//NOT UPDATING??
             System.out.println("2. Update Address - " + customer.getAddress());
             System.out.println("3. Update Postcode - " + customer.getPostcode());
             System.out.println("4. Update Phone Number - " + customer.getPhoneNumber());
             System.out.println("5. Return to Main Menu");
 
             // Read user input for the option to update
-            String option = reader.getStringInput();
+            String input = reader.getStringInput();
 
-            // Perform the update based on the chosen option
-            switch (option) {
+            // Choose detail to update
+            switch (input) {
                 case "1":
                     System.out.print("Enter new name: ");
                     String newName = reader.getStringInput();
-                    customerToUpdate.setName(newName);
+                    customer.setName(newName);
                     System.out.println("Customer name updated successfully.");
                     break;
                 case "2":
                     System.out.print("Enter new address: ");
                     String newAddress = reader.getStringInput();
-                    customerToUpdate.setAddress(newAddress);
+                    customer.setAddress(newAddress);
                     System.out.println("Customer address updated successfully.");
                     break;
                 case "3":
                     System.out.print("Enter new postcode: ");
                     String newPostcode = reader.getStringInput();
-                    customerToUpdate.setPostcode(newPostcode);
+                    customer.setPostcode(newPostcode);
                     System.out.println("Customer postcode updated successfully.");
                     break;
                 case "4":
                     System.out.print("Enter new phone number: ");
                     int newPhoneNumber = reader.getIntInput();
-                    customerToUpdate.setPhoneNumber(newPhoneNumber);
+                    customer.setPhoneNumber(newPhoneNumber);
                     System.out.println("Customer phone number updated successfully.");
                     break;
                 case "5":
@@ -224,7 +224,9 @@ public class UserInterface {
         }
     }
 
-
+    /**
+     * Shows amount of customers in Array List
+     */
     public void listAllCustomers() {
         if (customer != null) {
             customer.displayAllCustomers();

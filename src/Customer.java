@@ -150,24 +150,26 @@ public class Customer {
         customers.add(newCustomer);
     }
 
+    /**
+     * Remove customer from Array List via Customer ID
+     * @param customerID the customer ID of the customer to remove
+     */
     public void removeCustomer(int customerID) {
         if (customers.isEmpty()) {
             System.out.println("No customers to remove.");
             return; // Exit the method early if the list is empty
         }
-
         // Search for the customer with the given ID
-        int indexToRemove = -1;
+        int custToRemove = -1;
         for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getCustomerID() == customerID) {
-                indexToRemove = i;
+                custToRemove = i;
                 break;
             }
         }
-
         // Remove the customer if found
-        if (indexToRemove != -1) {
-            customers.remove(indexToRemove);
+        if (custToRemove != -1) {
+            customers.remove(custToRemove);
             System.out.println("Customer removed successfully.");
         } else {
             System.out.println("Customer with ID " + customerID + " not found.");
@@ -175,7 +177,10 @@ public class Customer {
     }
 
 
-
+    /**
+     * Shows amount of customers in Array List
+     * @return amount of entries in Customer Array List
+     */
     public int getCustomerListSize() {
         if (customers != null) {
             return customers.size();
@@ -183,7 +188,6 @@ public class Customer {
             return 0; // Return 0 if customers list is null
         }
     }
-
 
 
     /**
