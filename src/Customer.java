@@ -1,6 +1,6 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+
 
 /**
  * Class for customer admin
@@ -10,8 +10,10 @@ import java.util.List;
  */
 public class Customer {
 
+    public static int NEXT_CUSTOMER_ID = 1;
+
     private InputReader reader;
-    private ArrayList<Customer> customers;
+    private HashSet<Customer> customers;
     private int customerID;
     private String name;
     private String address;
@@ -23,16 +25,17 @@ public class Customer {
     /**
      * Constructor to create an object of the Customer Class
      *
-     * @param aCustomerID  unique Customer ID
+
      * @param aName        Customer name
      * @param aAddress     Customer address
      * @param aPostcode    Customer postcode
      * @param aPhoneNumber Customer phone number
      * @param aDob         Customer Date of Birth
      */
-    public Customer(int aCustomerID, String aName, String aAddress, String aPostcode, int aPhoneNumber, LocalDate aDob) {
-        customers = new ArrayList<Customer>();
-        this.customerID = aCustomerID;
+    public Customer(String aName, String aAddress, String aPostcode, int aPhoneNumber, LocalDate aDob) {
+        customers = new HashSet<Customer>();
+        this.customerID = NEXT_CUSTOMER_ID;
+        NEXT_CUSTOMER_ID++;
         this.name = aName;
         this.address = aAddress;
         this.postcode = aPostcode;
@@ -100,7 +103,7 @@ public class Customer {
      *
      * @return the list of customers
      */
-    public List<Customer> getCustomers() {
+    public HashSet<Customer> getCustomers() {
         return customers;
     }
 
@@ -142,71 +145,90 @@ public class Customer {
     }
 
     /**
-     * Add customer to Array List
+     * Add customer to HashSet
      *
-     * @param newCustomer Adds Customer to Array List
+     * @param newCustomer Adds Customer to HashSet
      */
     public void addCustomer(Customer newCustomer) {
         customers.add(newCustomer);
     }
 
     /**
-     * Remove customer from Array List via Customer ID
+     * Remove customer from HashSet via Customer ID
+     *
      * @param customerID the customer ID of the customer to remove
      */
     public void removeCustomer(int customerID) {
         if (customers.isEmpty()) {
             System.out.println("No customers to remove.");
-            return; // Exit the method early if the list is empty
+            return; // Exit early if the set is empty
         }
-        // Search for the customer with the given ID
-        int custToRemove = -1;
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getCustomerID() == customerID) {
-                custToRemove = i;
-                break;
+
+        Customer customerToRemove = null;
+
+        //For Loop to search through Customers
+        for (Customer currentCustomer : customers) {
+            // Find matching Customer ID
+            if (currentCustomer.getCustomerID() == customerID) {
+                customerToRemove = currentCustomer;
+                break; // Stops searching when match is found
             }
         }
+
         // Remove the customer if found
-        if (custToRemove != -1) {
-            customers.remove(custToRemove);
+        if (customerToRemove != null) {
+            customers.remove(customerToRemove);
             System.out.println("Customer removed successfully.");
-        } else {
+        }
+        //if no match found
+        else
+        {
             System.out.println("Customer with ID " + customerID + " not found.");
         }
     }
 
-
-    /**
-     * Shows amount of customers in Array List
-     * @return amount of entries in Customer Array List
-     */
-    public int getCustomerListSize() {
-        if (customers != null) {
-            return customers.size();
-        } else {
-            return 0; // Return 0 if customers list is null
-        }
-    }
-
-
-    /**
-     * Displays all Customers in Array List
-     */
-    public void displayAllCustomers() {
+    public Customer getCustomerById(int customerID) {
+        // Assuming there is a HashSet<Customer> or another collection of customers named "customers"
         for (Customer customer : customers) {
-            System.out.println("------------");
-            System.out.println(customer);
+            if (customer.getCustomerID() == customerID) {
+                return customer;
+            }
         }
-    }
-
-    /**
-     * @return
-     */
-    public String toString() {
-        return "Customer ID: " + getCustomerID() + "\nName: " + this.getName() + "\nAddress: " + this.getAddress() +
-                "\nPostcode: " + getPostcode() + "\nPhone Number: " + getPhoneNumber() + "\nDate of Birth: " + getDob();
+        return null; // Return null if no customer is found
     }
 
 
-}
+
+        /**
+         * Shows amount of customers in HashSet
+         * @return amount of entries in Customer HashSet
+         */
+        private int getCustomerListSize () {
+            if (customers != null) {
+                return customers.size();
+            } else {
+                return 0; // Return 0 if customers list is null
+            }
+        }
+
+
+        /**
+         * Displays all Customers in HashSet
+         */
+        public void displayAllCustomers () {
+            for (Customer customer : customers) {
+                System.out.println("------------");
+                System.out.println(customer);
+            }
+        }
+
+        /**
+         * @return
+         */
+        public String toString () {
+            return "Customer ID: " + getCustomerID() + "\nName: " + this.getName() + "\nAddress: " + this.getAddress() +
+                    "\nPostcode: " + getPostcode() + "\nPhone Number: " + getPhoneNumber() + "\nDate of Birth: " + getDob();
+        }
+
+
+    }

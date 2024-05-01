@@ -5,7 +5,8 @@ import java.time.LocalDate;
  * @author davem
  * @version 18/04/24
  */
-public class Account {
+public abstract class Account {
+    public static int NEXT_ACCOUNT_NUMBER = 1;
     private int accountNum;
     private int sortCode;
     private String accountOwner;
@@ -17,7 +18,6 @@ public class Account {
 
     /**
      * Constructor to create an object of the Account Class
-     * @param aAccountNum
      * @param aSortCode
      * @param anAccountOwner
      * @param aAccountBalance
@@ -25,9 +25,10 @@ public class Account {
      * @param theCloseDate
      * @param theClosingBalance
      */
-    public Account(int aAccountNum, int aSortCode, String anAccountOwner, int aAccountBalance, LocalDate aOpenDate, LocalDate theCloseDate, int theClosingBalance)
+    public Account(int aSortCode, String anAccountOwner, int aAccountBalance, LocalDate aOpenDate, LocalDate theCloseDate, int theClosingBalance)
     {
-        this.accountNum = aAccountNum;
+        this.accountNum = Account.NEXT_ACCOUNT_NUMBER;
+        NEXT_ACCOUNT_NUMBER++;
         this.sortCode = aSortCode;
         this.accountOwner = anAccountOwner;
         this.accountBalance = aAccountBalance;
