@@ -81,6 +81,7 @@ public class UserInterface {
                     break;
                 case "10":
                     //Display Account Transactions
+                    break;
                     //Exit
                 case "0":
                     System.out.println("Thank you for using Kilmaine Credit Union. Goodbye!");
@@ -106,17 +107,19 @@ public class UserInterface {
         String postcode = reader.getStringInput();
         System.out.println("Please enter Customer Phone Number: ");
         int phoneNumber = reader.getIntInput();
-
         System.out.println("Please enter Customer Date of Birth [DD/MM/YYYY]: ");
-        String dob = reader.getStringInput();
-
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateOfBirth = null;
-        try {
-            dateOfBirth = LocalDate.parse(dob, dtf);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please enter a date in the format [DD/MM/YYYY].");
-            return;
+
+// Loop to prompt the user until a valid date is provided
+        while (dateOfBirth == null) {
+            String dob = reader.getStringInput();
+
+            try {
+                dateOfBirth = LocalDate.parse(dob, dtf);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter a date in the format [DD/MM/YYYY]: ");
+            }
         }
 
         // Create a new customer
@@ -170,10 +173,10 @@ public class UserInterface {
 
         // Allow the user to update customer details
         System.out.println("Updating details for Customer ID: " + customerID);
-        System.out.println("1. Update Name (current: " + customerToUpdate.getName() + ")");
-        System.out.println("2. Update Address (current: " + customerToUpdate.getAddress() + ")");
-        System.out.println("3. Update Postcode (current: " + customerToUpdate.getPostcode() + ")");
-        System.out.println("4. Update Phone Number (current: " + customerToUpdate.getPhoneNumber() + ")");
+        System.out.println("1. Update Name (current: " + customer.getName() + ")");
+        System.out.println("2. Update Address (current: " + customer.getAddress() + ")");
+        System.out.println("3. Update Postcode (current: " + customer.getPostcode() + ")");
+        System.out.println("4. Update Phone Number (current: " + customer.getPhoneNumber() + ")");
         System.out.println("0. Return to Main Menu");
 
         String choice = reader.getStringInput();

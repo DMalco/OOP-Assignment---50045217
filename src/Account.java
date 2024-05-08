@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * @version 18/04/24
  */
 public abstract class Account {
-    public static int NEXT_ACCOUNT_NUMBER = 1;
+    public static int NEXT_ACCOUNT_NUMBER = 000001;
     private int accountNum;
     private int sortCode;
     private String accountOwner;
