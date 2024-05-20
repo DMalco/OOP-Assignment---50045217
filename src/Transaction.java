@@ -1,75 +1,69 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * Class for Transaction admin
+ * Class for managing transactions in the banking system.
+ * This class represents individual transactions made by customers, including details such as transaction ID, value, date and time, and type (deposit/withdrawal).
  * @author davem
  * @version 18/04/24
  */
 public class Transaction {
+    private static int NEXT_TRANSACTION_ID;
     private int transactionID;
-    private int accountNum;
-    private LocalDate transactionDate;
-    private String type; //Deposit/withdrawal
-    private int amount;
-
+    private int value;
+    private LocalDateTime transactionDateTime;
+    private TransactionType type; // Deposit/withdrawal
 
     /**
-     * Constructor to create an object of the Transaction Class
-     * @param aTransactionID Unique transaction ID number
-     * @param aAccountNum Account number
-     * @param aTransactionDate Date of transaction
-     * @param aType Type of transaction (Deposit/Withdrawal)
-     * @param anAmount Amount of money in transaction
+     * Constructor to create a Transaction object.
+     * @param aType The type of transaction (Deposit/Withdrawal)
+     * @param numValue The value of the transaction
      */
-    public Transaction(int aTransactionID, int aAccountNum, LocalDate aTransactionDate, String aType, int anAmount)
-    {
-        this.transactionID = aTransactionID;
-        this.accountNum = aAccountNum;
-        this.transactionDate = aTransactionDate;
+    public Transaction(TransactionType aType, int numValue) {
         this.type = aType;
-        this.amount = anAmount;
+        this.value = numValue;
+        this.transactionDateTime = LocalDateTime.now();
+        this.transactionID = NEXT_TRANSACTION_ID;
+        NEXT_TRANSACTION_ID++;
     }
 
     /**
-     * Getter for Transaction ID
-     * @return Transaction ID
+     * Getter for the transaction ID.
+     * @return The transaction ID
      */
     public int getTransactionID() {
         return transactionID;
     }
 
     /**
-     * Getter for Customer Account number in transaction
-     * @return Account Number
+     * Getter for the transaction value.
+     * @return The transaction value
      */
-    public int getAccountNum() {
-        return accountNum;
+    public int getValue() {
+        return value;
     }
 
     /**
-     * Getter for Date of transaction
-     * @return Date of Transaction
+     * Getter for the transaction date and time.
+     * @return The transaction date and time
      */
-    public LocalDate getTransactionDate() {
-        return transactionDate;
+    public LocalDateTime getTransactionDateTime() {
+        return transactionDateTime;
     }
 
     /**
-     * Getter for Type of transaction (Deposit/Withdrawal)
-     * @return Type of transaction
+     * Getter for the transaction type (Deposit/Withdrawal).
+     * @return The transaction type
      */
-    public String getType() {
+    public TransactionType getType() {
         return type;
     }
 
     /**
-     * Getter for amount of money in transaction
-     * @return Amount in transaction
+     * Display the details of the transaction.
+     * Prints out the transaction type, value, date and time, and transaction ID.
      */
-    public int getAmount() {
-        return amount;
+    public void showDetails() {
+        System.out.println(this.type.toString() + "\t" + this.value + "\t" + this.transactionDateTime.toString() + "\t" + transactionID);
     }
-
-
-
 }

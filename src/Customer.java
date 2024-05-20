@@ -1,18 +1,13 @@
 import java.time.LocalDate;
 import java.util.HashSet;
 
-
 /**
- * Class for customer admin
- *
- * @author davem
- * @version 18/04/24
+ * Class representing a customer in the bank system.
  */
 public class Customer {
 
     public static int NEXT_CUSTOMER_ID = 1;
 
-    private InputReader reader;
     private HashSet<Customer> customers;
     private int customerID;
     private String name;
@@ -21,11 +16,9 @@ public class Customer {
     private int phoneNumber;
     private LocalDate dateOfBirth;
 
-
     /**
-     * Constructor to create an object of the Customer Class
+     * Constructor to create a Customer object.
      *
-
      * @param aName        Customer name
      * @param aAddress     Customer address
      * @param aPostcode    Customer postcode
@@ -33,7 +26,7 @@ public class Customer {
      * @param aDob         Customer Date of Birth
      */
     public Customer(String aName, String aAddress, String aPostcode, int aPhoneNumber, LocalDate aDob) {
-        customers = new HashSet<Customer>();
+        this.customers = new HashSet<>();
         this.customerID = NEXT_CUSTOMER_ID;
         NEXT_CUSTOMER_ID++;
         this.name = aName;
@@ -41,11 +34,10 @@ public class Customer {
         this.postcode = aPostcode;
         this.phoneNumber = aPhoneNumber;
         this.dateOfBirth = aDob;
-
     }
 
     /**
-     * Getter for Customer ID field
+     * Getter for Customer ID field.
      *
      * @return Customer ID
      */
@@ -54,7 +46,7 @@ public class Customer {
     }
 
     /**
-     * Getter for Name field
+     * Getter for Name field.
      *
      * @return Customer Name
      */
@@ -63,7 +55,7 @@ public class Customer {
     }
 
     /**
-     * Getter for Address field
+     * Getter for Address field.
      *
      * @return Customer Address
      */
@@ -72,7 +64,7 @@ public class Customer {
     }
 
     /**
-     * Getter for Postcode field
+     * Getter for Postcode field.
      *
      * @return Customer Postcode
      */
@@ -81,7 +73,7 @@ public class Customer {
     }
 
     /**
-     * Getter for Phone Number field
+     * Getter for Phone Number field.
      *
      * @return Customer Phone Number
      */
@@ -90,7 +82,7 @@ public class Customer {
     }
 
     /**
-     * Getter for Date of Birth field
+     * Getter for Date of Birth field.
      *
      * @return Customer Date of Birth
      */
@@ -108,7 +100,7 @@ public class Customer {
     }
 
     /**
-     * Setter for Customer Name
+     * Setter for Customer Name.
      *
      * @param name Sets Customer Name
      */
@@ -117,7 +109,7 @@ public class Customer {
     }
 
     /**
-     * Setter for Customer Address
+     * Setter for Customer Address.
      *
      * @param address Sets Customer Address
      */
@@ -126,7 +118,7 @@ public class Customer {
     }
 
     /**
-     * Setter for Customer Postcode
+     * Setter for Customer Postcode.
      *
      * @param postcode Sets Customer Postcode
      */
@@ -134,9 +126,8 @@ public class Customer {
         this.postcode = postcode;
     }
 
-
     /**
-     * Setter for Customer Phone Number
+     * Setter for Customer Phone Number.
      *
      * @param phoneNumber Sets Customer Phone Number
      */
@@ -145,18 +136,18 @@ public class Customer {
     }
 
     /**
-     * Add customer to HashSet
+     * Adds a customer to the HashSet of customers.
      *
-     * @param newCustomer Adds Customer to HashSet
+     * @param newCustomer The customer to be added
      */
     public void addCustomer(Customer newCustomer) {
         customers.add(newCustomer);
     }
 
     /**
-     * Remove customer from HashSet via Customer ID
+     * Removes a customer from the HashSet based on their ID.
      *
-     * @param customerID the customer ID of the customer to remove
+     * @param customerID The ID of the customer to remove
      */
     public void removeCustomer(int customerID) {
         if (customers.isEmpty()) {
@@ -166,9 +157,8 @@ public class Customer {
 
         Customer customerToRemove = null;
 
-        //For Loop to search through Customers
+        // Iterate through customers to find matching ID
         for (Customer currentCustomer : customers) {
-            // Find matching Customer ID
             if (currentCustomer.getCustomerID() == customerID) {
                 customerToRemove = currentCustomer;
                 break; // Stops searching when match is found
@@ -179,56 +169,65 @@ public class Customer {
         if (customerToRemove != null) {
             customers.remove(customerToRemove);
             System.out.println("Customer removed successfully.");
-        }
-        //if no match found
-        else
-        {
+        } else {
             System.out.println("Customer with ID " + customerID + " not found.");
         }
     }
 
+    /**
+     * Retrieves a customer by their ID.
+     *
+     * @param customerID The ID of the customer to retrieve
+     * @return The customer object if found, null otherwise
+     */
     public Customer getCustomerById(int customerID) {
-        // Assuming there is a HashSet<Customer> or another collection of customers named "customers"
         for (Customer customer : customers) {
             if (customer.getCustomerID() == customerID) {
                 return customer;
             }
         }
-        return null; // Return null if no customer is found
+        return null;
     }
 
-
-
-        /**
-         * Shows amount of customers in HashSet
-         * @return amount of entries in Customer HashSet
-         */
-        private int getCustomerListSize () {
-            if (customers != null) {
-                return customers.size();
-            } else {
-                return 0; // Return 0 if customers list is null
-            }
+    /**
+     * Shows the number of customers in the HashSet.
+     *
+     * @return The number of entries in the Customer HashSet
+     */
+    private int getCustomerListSize() {
+        if (customers != null) {
+            return customers.size();
+        } else {
+            return 0; // Return 0 if customers list is null
         }
-
-
-        /**
-         * Displays all Customers in HashSet
-         */
-        public void displayAllCustomers () {
-            for (Customer customer : customers) {
-                System.out.println("------------");
-                System.out.println(customer);
-            }
-        }
-
-        /**
-         * @return
-         */
-        public String toString () {
-            return "Customer ID: " + getCustomerID() + "\nName: " + this.getName() + "\nAddress: " + this.getAddress() +
-                    "\nPostcode: " + getPostcode() + "\nPhone Number: " + getPhoneNumber() + "\nDate of Birth: " + getDob();
-        }
-
-
     }
+
+    /**
+     * Displays details of all customers in the HashSet.
+     */
+    public void displayAllCustomers() {
+        for (Customer customer : customers) {
+            System.out.println("------------");
+            System.out.println(customer);
+        }
+    }
+
+    /**
+     * Displays details of a customer.
+     */
+    public void displayDetails() {
+        System.out.println(this.getCustomerID() + "\t" + this.getName() + "\t" + this.getAddress() + "\t" + this.getPostcode()
+                + "\t" + this.getDob().toString());
+    }
+
+    /**
+     * Overrides the toString method to provide a string representation of the Customer object.
+     *
+     * @return A string representation of the Customer object
+     */
+    @Override
+    public String toString() {
+        return "Customer ID: " + this.getCustomerID() + ", Name: " + this.getName() + ", Address: " + this.getAddress() + ", Postcode: " + this.getPostcode() + ", Date of Birth: " + this.getDob().toString();
+    }
+
+}

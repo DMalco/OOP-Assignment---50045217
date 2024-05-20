@@ -1,11 +1,27 @@
 import java.time.LocalDate;
 
-public class HighInterestSavingsAccount extends Account
-{
-    private int interestRate;
-    public HighInterestSavingsAccount(int aAccountNum, int aSortCode, String anAccountOwner, int aAccountBalance, LocalDate aOpenDate, LocalDate theCloseDate, int theClosingBalance, int aInterestRate)
-    {
-        super(/*aAccountNum,*/ aSortCode, anAccountOwner, aAccountBalance, aOpenDate,theCloseDate,theClosingBalance);
-        this.interestRate = aInterestRate;
+/**
+ * Class representing High Interest Savings Accounts, with a 20% interest rate.
+ */
+public class HighInterestSavingsAccount extends Account {
+
+    /**
+     * Constructor to create a High Interest Savings Account.
+     *
+     * @param anAccountOwner The owner of the account
+     */
+    public HighInterestSavingsAccount(Customer anAccountOwner) {
+        super(anAccountOwner);
+    }
+
+    /**
+     * Overrides the deposit method to include a 20% interest.
+     *
+     * @param numCredit The amount to be deposited
+     */
+    @Override
+    public void deposit(int numCredit) {
+        int interestValue = numCredit / 100 * 20; // Calculate 20% interest
+        super.deposit(numCredit + interestValue); // Add interest to the deposit
     }
 }
