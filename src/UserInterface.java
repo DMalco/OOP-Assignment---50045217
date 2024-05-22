@@ -103,6 +103,10 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Adds customer to bank records via user input
+     * Try/catch to ensure correct date input format
+     */
     private void addCustomer() {
         System.out.println("Create New Customer");
         System.out.println("--------------------");
@@ -121,6 +125,7 @@ public class UserInterface {
             String dob = reader.getStringInput();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+            //To make sure date is inputted correctly
             try {
                 dateOfBirth = LocalDate.parse(dob, dtf);
             } catch (DateTimeParseException e) {
@@ -132,6 +137,9 @@ public class UserInterface {
         bank.addCustomer(newCustomer);
     }
 
+    /**
+     * Remove customer from bank records. Searched by unique Customer ID
+     */
     private void removeCustomer() {
         System.out.println("Remove Customer");
         System.out.println("Enter the Customer ID to remove: ");
@@ -140,6 +148,9 @@ public class UserInterface {
         bank.removeCustomer(customerID);
     }
 
+    /**
+     * Display all details for individual customer by searching for their Customer ID
+     */
     private void displayCustomerDetails() {
         System.out.println("Enter the Customer ID to display details: ");
         int customerID = reader.getIntInput();
@@ -150,6 +161,9 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Update existing customer details by searching for their Customer ID and selecting which details to change
+     */
     private void updateCustomerDetails() {
         System.out.println("Update Customer Details");
         System.out.println("Enter the Customer ID to update: ");
@@ -165,7 +179,7 @@ public class UserInterface {
         boolean exit = false;
         while (!exit) {
             System.out.println("Updating details for Customer ID: " + customerID);
-            System.out.println("1. Update Name (current: " + customerToUpdate.getName() + ")");
+            System.out.println("1. Update Name (current: " + customerToUpdate.getName() + ")"); // Will show updated details when changed
             System.out.println("2. Update Address (current: " + customerToUpdate.getAddress() + ")");
             System.out.println("3. Update Postcode (current: " + customerToUpdate.getPostcode() + ")");
             System.out.println("4. Update Phone Number (current: " + customerToUpdate.getPhoneNumber() + ")");
@@ -202,6 +216,9 @@ public class UserInterface {
         System.out.println("Customer details updated successfully.");
     }
 
+    /**
+     * Displays all Customer records
+     */
     private void listAllCustomers() {
         System.out.println("List of All Customers:");
         for (Customer customer : bank.getAllCustomers()) {
@@ -210,8 +227,11 @@ public class UserInterface {
     }
 
 
-
-    public void openAccount() {
+    /**
+     * Opens account with bank search via customer ID
+     * Select type of account to open via switch statement
+     */
+    private void openAccount() {
         System.out.println("Open Account");
         System.out.println("Enter the Customer ID to open account for: ");
         int customerID = reader.getIntInput();
@@ -255,9 +275,15 @@ public class UserInterface {
         bank.addAccount(account);
 
         System.out.println("Account opened successfully.");
+        System.out.println("Account Holder: " + bank.getCustomer(customerID) +
+                "\n Account Number: " + account.getAccountNum() + " Balance: " + account.getBalance());
+
     }
 
-    public void closeAccount() {
+    /**
+     * Close account and record date of closure and closing balance
+     */
+    private void closeAccount() {
         System.out.println("Close Account");
         System.out.println("Enter the Account Number to close: ");
         int accountNum = reader.getIntInput();
@@ -280,7 +306,11 @@ public class UserInterface {
         account.deactivate();
         System.out.println("Account closed successfully.");
     }
-    public void deposit() {
+
+    /**
+     * Deposit money into an account, search for account via Account Number
+     */
+    private void deposit() {
         System.out.println("Deposit Into Account");
         System.out.println("Enter the Account Number to deposit into: ");
         int accountNum = reader.getIntInput();
@@ -308,7 +338,11 @@ public class UserInterface {
         System.out.println("Deposit successful. New balance: " + account.getBalance());
     }
 
-    public void withdraw() {
+    /**
+     * Withdraw money from account. Search for account via Account Number
+     * Error handling to ensure sufficient funds are available
+     */
+    private void withdraw() {
         System.out.println("Withdraw From Account");
         System.out.println("Enter the Account Number to withdraw from: ");
         int accountNum = reader.getIntInput();

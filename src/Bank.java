@@ -29,7 +29,7 @@ public class Bank {
             System.out.println("Customer already exists.");
         } else {
             customers.add(customer);
-            System.out.println("Customer added successfully.");
+            System.out.println("Customer added successfully.\n");
         }
     }
 
@@ -73,7 +73,6 @@ public class Bank {
             System.out.println("Account already exists.");
         } else {
             accounts.add(account);
-            System.out.println("Account added successfully.");
         }
     }
 

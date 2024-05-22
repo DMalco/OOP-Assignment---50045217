@@ -21,6 +21,7 @@ public abstract class Account {
     private Customer accountOwner;
     private HashSet<Transaction> transactions;
 
+
     /**
      * Constructor to create an object of the Account Class.
      * Initializes account details and assigns an account number.
@@ -38,6 +39,7 @@ public abstract class Account {
         this.closureDate = null;
         this.closingBalance = 0;
         this.transactions = new HashSet<>();
+
     }
 
     /**
@@ -185,13 +187,14 @@ public abstract class Account {
 
         if (this.isActive()) {
             status = " Account Open ";
-            date = this.getDateActivated();
+            date = "Date opened: " + this.getDateActivated();
         } else {
             status = "Account Closed ";
-            date = this.getDateDeactivated();
+            date = "Date opened: " + this.getDateActivated() + " , Date closed: " + this.getDateDeactivated();
         }
 
-        System.out.println("Customer ID: " + this.accountOwner.getCustomerID() + " , " + "Sort Code: " + getSortCode() + "Account Number: " + getAccountNum() +
+        System.out.println("Customer ID: " + this.accountOwner.getCustomerID() + " , " + "Sort Code: " + getSortCode() + " , " +
+                "Account Number: " + getAccountNum() + " , " +
                 "Balance: " + this.getBalance() + " , " + status + ", " + date);
     }
 
@@ -200,10 +203,35 @@ public abstract class Account {
      */
     public void showTransactions() {
         System.out.println("Total transactions: " + numberOfTransactions());
-        System.out.println("Type\tBalance\tDate/Time\tID");
 
         for (Transaction t : this.transactions) {
             t.showDetails();
         }
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+
+        boolean equal = false;
+        if (obj == this)
+        {
+            equal = true;
+        }
+        else // memory references do not match
+        {
+            if(obj instanceof  Account)
+            {
+                Account otherAccount = (Account) obj;
+
+                if(otherAccount.getAccountNum() == this.getAccountNum())
+                {
+                    equal = true;
+                }
+            }
+        }
+
+        return equal;
+    }
+
 }

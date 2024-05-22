@@ -230,4 +230,29 @@ public class Customer {
         return "Customer ID: " + this.getCustomerID() + ", Name: " + this.getName() + ", Address: " + this.getAddress() + ", Postcode: " + this.getPostcode() + ", Date of Birth: " + this.getDob().toString();
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+
+        boolean equal = false; // local variable to use to return whether the objects are considered equal
+        if (obj == this) // if memory references of the two objects match, we consider them equal by default
+        {
+            equal = true;
+        }
+        else // memory references do not match
+        {
+            if(obj instanceof  Customer) // if parameter object is an instance of the visitor class (or its subclasses)
+            {
+                Customer otherCustomer = (Customer) obj; // cast the parameter object to an object of the Visitor class
+
+                if(otherCustomer.getCustomerID() == this.getCustomerID()) // compare the IDs
+                {
+                    equal = true; // return true if the IDs match
+                }
+            }
+        }
+
+        return equal;
+    }
+
 }

@@ -64,6 +64,31 @@ public class Transaction {
      * Prints out the transaction type, value, date and time, and transaction ID.
      */
     public void showDetails() {
-        System.out.println(this.type.toString() + "\t" + this.value + "\t" + this.transactionDateTime.toString() + "\t" + transactionID);
+        System.out.println("Transaction ID: " + transactionID + "Type: " +this.type.toString() + ", Value: " + this.value + ", Date + Time: " + this.transactionDateTime.toString());
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+
+        boolean equal = false;
+        if (obj == this)
+        {
+            equal = true;
+        }
+        else // memory references do not match
+        {
+            if(obj instanceof  Transaction)
+            {
+                Transaction otherTransaction = (Transaction) obj;
+
+                if(otherTransaction.getTransactionID() == this.getTransactionID())
+                {
+                    equal = true;
+                }
+            }
+        }
+
+        return equal;
     }
 }

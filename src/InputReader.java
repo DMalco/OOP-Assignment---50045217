@@ -30,7 +30,7 @@ public class InputReader {
      */
     public int getIntInput() {
         int input = scanner.nextInt(); // Read integer input
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
         return input;
     }
 }

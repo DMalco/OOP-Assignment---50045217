@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.objects.XString;
+
 import java.time.LocalDate;
 
 /**
@@ -5,6 +7,7 @@ import java.time.LocalDate;
  */
 public class HighInterestSavingsAccount extends Account {
 
+    private int transactionLimit = 10;
     /**
      * Constructor to create a High Interest Savings Account.
      *
@@ -12,6 +15,7 @@ public class HighInterestSavingsAccount extends Account {
      */
     public HighInterestSavingsAccount(Customer anAccountOwner) {
         super(anAccountOwner);
+
     }
 
     /**
@@ -24,4 +28,6 @@ public class HighInterestSavingsAccount extends Account {
         int interestValue = numCredit / 100 * 20; // Calculate 20% interest
         super.deposit(numCredit + interestValue); // Add interest to the deposit
     }
+
+    //TRANSACTION LIMIT AND TRANSACTIONS PER YEAR
 }
