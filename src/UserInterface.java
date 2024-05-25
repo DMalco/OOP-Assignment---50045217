@@ -8,8 +8,8 @@ import java.time.format.DateTimeParseException;
  * Allows users to perform various operations such as adding customers, opening/closing accounts, and conducting transactions.
  */
 public class UserInterface {
-    private Bank bank;
-    private InputReader reader;
+    private final Bank bank;
+    private final InputReader reader;
 
     /**
      * Constructor to initialize UserInterface object with a bank and input reader.
@@ -27,7 +27,7 @@ public class UserInterface {
         boolean quit = false;
 
         while (!quit) {
-            System.out.println("Kilmaine Credit Union");
+            System.out.println("\nKilmaine Credit Union");
             System.out.println("**********************");
             System.out.println("Please choose option:");
             System.out.println("1. Add Customer");
@@ -107,7 +107,7 @@ public class UserInterface {
      * Adds customer to bank records via user input
      * Try/catch to ensure correct date input format
      */
-    private void addCustomer() {
+    public void addCustomer() {
         System.out.println("Create New Customer");
         System.out.println("--------------------");
         System.out.println("Please enter Customer Name: ");
@@ -116,8 +116,20 @@ public class UserInterface {
         String address = reader.getStringInput();
         System.out.println("Please enter Customer Postcode: ");
         String postcode = reader.getStringInput();
-        System.out.println("Please enter Customer Phone Number: ");
-        int phoneNumber = reader.getIntInput();
+
+        int phoneNumber = 0;
+        boolean validPhoneNumber = false;
+        while (!validPhoneNumber) {
+            System.out.println("Please enter Customer Phone Number: ");
+            try {
+                phoneNumber = Integer.parseInt(reader.getStringInput());
+                validPhoneNumber = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Phone number must be a number.");
+            }
+        }
+
+
         LocalDate dateOfBirth = null;
 
         while (dateOfBirth == null) {
@@ -135,6 +147,14 @@ public class UserInterface {
 
         Customer newCustomer = new Customer(name, address, postcode, phoneNumber, dateOfBirth);
         bank.addCustomer(newCustomer);
+        // Print the details of the newly added customer
+        System.out.println("New Customer Added:");
+        System.out.println("Customer ID: " + newCustomer.getCustomerID());
+        System.out.println("Name: " + newCustomer.getName());
+        System.out.println("Address: " + newCustomer.getAddress());
+        System.out.println("Postcode: " + newCustomer.getPostcode());
+        System.out.println("Phone Number: " + newCustomer.getPhoneNumber());
+        System.out.println("Date of Birth: " + newCustomer.getDob());
     }
 
     /**
@@ -305,12 +325,15 @@ public class UserInterface {
         // Close the account
         account.deactivate();
         System.out.println("Account closed successfully.");
+        System.out.println("Closing Date: " + LocalDate.now());
+        System.out.println("Closing Balance: " + account.getBalance());
     }
+
 
     /**
      * Deposit money into an account, search for account via Account Number
      */
-    private void deposit() {
+    public void deposit() {
         System.out.println("Deposit Into Account");
         System.out.println("Enter the Account Number to deposit into: ");
         int accountNum = reader.getIntInput();
@@ -321,6 +344,21 @@ public class UserInterface {
         if (account == null) {
             System.out.println("Account with number " + accountNum + " not found.");
             return;
+        }
+
+        // Check if the account is closed
+        if (!account.isActive()) {
+            System.out.println("Cannot deposit into a closed account.");
+            return; // Exit the method if the account is closed
+        }
+
+        // Check if the account is a high-interest savings account and if it has reached the transaction limit
+        if (account instanceof HighInterestSavingsAccount) {
+            HighInterestSavingsAccount highInterestAccount = (HighInterestSavingsAccount) account;
+            if (highInterestAccount.getTransactionsThisYear() >= highInterestAccount.getTransactionLimit()) {
+                System.out.println("Transaction limit for the year reached.");
+                return; // Exit the method if the transaction limit is reached
+            }
         }
 
         System.out.println("Enter the amount to deposit: ");
@@ -335,14 +373,14 @@ public class UserInterface {
         // Update the account balance
         account.deposit(amount);
 
+        // Print success message with new balance
         System.out.println("Deposit successful. New balance: " + account.getBalance());
     }
 
     /**
-     * Withdraw money from account. Search for account via Account Number
-     * Error handling to ensure sufficient funds are available
+     * Withdraw money from an account, search for account via Account Number
      */
-    private void withdraw() {
+    public void withdraw() {
         System.out.println("Withdraw From Account");
         System.out.println("Enter the Account Number to withdraw from: ");
         int accountNum = reader.getIntInput();
@@ -353,6 +391,21 @@ public class UserInterface {
         if (account == null) {
             System.out.println("Account with number " + accountNum + " not found.");
             return;
+        }
+
+        // Check if the account is closed
+        if (!account.isActive()) {
+            System.out.println("Cannot withdraw from a closed account.");
+            return; // Exit the method if the account is closed
+        }
+
+        // Check if the account is a high-interest savings account and if it has reached the transaction limit
+        if (account instanceof HighInterestSavingsAccount) {
+            HighInterestSavingsAccount highInterestAccount = (HighInterestSavingsAccount) account;
+            if (highInterestAccount.getTransactionsThisYear() >= highInterestAccount.getTransactionLimit()) {
+                System.out.println("Transaction limit for the year reached.");
+                return; // Exit the method if the transaction limit is reached
+            }
         }
 
         System.out.println("Enter the amount to withdraw: ");
@@ -373,6 +426,7 @@ public class UserInterface {
         // Update the account balance
         account.withdraw(amount);
 
+        // Print success message with new balance
         System.out.println("Withdrawal successful. New balance: " + account.getBalance());
     }
 

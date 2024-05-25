@@ -29,7 +29,7 @@ public class Bank {
             System.out.println("Customer already exists.");
         } else {
             customers.add(customer);
-            System.out.println("Customer added successfully.\n");
+          //  System.out.println("Customer added successfully.\n"); Causing double success statements
         }
     }
 

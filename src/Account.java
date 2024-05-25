@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.HashSet;
 
+
 /**
  * Abstract Account Class
  * Represents a bank account.
@@ -10,16 +11,16 @@ import java.util.HashSet;
  */
 public abstract class Account {
     private static int NEXT_ACCOUNT_NUMBER = 1;
-    private int accountNum;
-    private int sortCode;
+    private final int accountNum;
+    private final int sortCode;
     private int accountBalance;
     private LocalDate openDate;
     private boolean active; // Indicates whether the account is open or closed
     private LocalDate closureDate; // Date when the account was closed
     private int closingBalance; // Balance when the account was closed
 
-    private Customer accountOwner;
-    private HashSet<Transaction> transactions;
+    private final Customer accountOwner;
+    private final HashSet<Transaction> transactions;
 
 
     /**
@@ -139,6 +140,12 @@ public abstract class Account {
     }
 
     /**
+     * Returns the account type as a string.
+     * @return the account type.
+     */
+    public abstract String getAccountType();
+
+    /**
      * Deposits money into the account.
      *
      * @param numValue The amount to be deposited into the account.
@@ -190,12 +197,24 @@ public abstract class Account {
             date = "Date opened: " + this.getDateActivated();
         } else {
             status = "Account Closed ";
-            date = "Date opened: " + this.getDateActivated() + " , Date closed: " + this.getDateDeactivated();
+            date = "Date opened: " + this.getDateActivated() + ", Date closed: " + this.getDateDeactivated();
         }
 
-        System.out.println("Customer ID: " + this.accountOwner.getCustomerID() + " , " + "Sort Code: " + getSortCode() + " , " +
+        String accountType = getAccountType();
+        String transactionDetails = "";
+
+        // Check if it is a high interest savings account
+        if (accountType.equals("High Interest Savings Account")) {
+            HighInterestSavingsAccount highInterestAccount = (HighInterestSavingsAccount) this;
+            int transactionsThisYear = highInterestAccount.getTransactionsThisYear();
+            transactionDetails = ", Transactions this year: " + transactionsThisYear + "/" + highInterestAccount.getTransactionLimit();
+        }
+
+        System.out.println("Account Number: " + getAccountNum() +", " + "Customer ID: " + this.accountOwner.getCustomerID() + ", "
+                + "Account Type: " + accountType + ", "
+                + "Sort Code: " + getSortCode() + " , " +
                 "Account Number: " + getAccountNum() + " , " +
-                "Balance: " + this.getBalance() + " , " + status + ", " + date);
+                "Balance: " + this.getBalance() + ", " + status + ", " + date + transactionDetails);
     }
 
     /**

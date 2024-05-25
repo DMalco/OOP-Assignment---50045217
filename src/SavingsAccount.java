@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-
+/*
 /**
  * Class for Savings Accounts (10%)
  * This class represents a savings account, which extends the Account class.
@@ -8,7 +8,6 @@ import java.time.LocalDate;
  * @version 20/05/24
  */
 public class SavingsAccount extends Account {
-
     /**
      * Constructs a SavingsAccount object with the specified account owner.
      * @param anAccountOwner the owner of the account
@@ -26,5 +25,14 @@ public class SavingsAccount extends Account {
         int interestValue = numCredit / 100 * 10; // Calculate interest value (10%)
         super.deposit(numCredit + interestValue); // Add interest to the deposit amount
     }
-}
 
+
+    /**
+     * Returns the account type as "Savings Account".
+     * @return the account type.
+     */
+    @Override
+    public String getAccountType() {
+        return "Savings Account";
+    }
+}

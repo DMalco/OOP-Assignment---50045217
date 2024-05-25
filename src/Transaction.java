@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
  * @version 18/04/24
  */
 public class Transaction {
-    private static int NEXT_TRANSACTION_ID;
-    private int transactionID;
-    private int value;
-    private LocalDateTime transactionDateTime;
-    private TransactionType type; // Deposit/withdrawal
+    private static int NEXT_TRANSACTION_ID = 1;
+    private final int transactionID;
+    private final int value;
+    private final LocalDateTime transactionDateTime;
+    private final TransactionType type; // Deposit/withdrawal
 
     /**
      * Constructor to create a Transaction object.
@@ -64,7 +64,7 @@ public class Transaction {
      * Prints out the transaction type, value, date and time, and transaction ID.
      */
     public void showDetails() {
-        System.out.println("Transaction ID: " + transactionID + "Type: " +this.type.toString() + ", Value: " + this.value + ", Date + Time: " + this.transactionDateTime.toString());
+        System.out.println("Transaction ID: " + transactionID + ", " + "Type: " +this.type.toString() + ", Value: " + this.value + ", Date + Time: " + this.transactionDateTime.toString());
     }
 
     @Override

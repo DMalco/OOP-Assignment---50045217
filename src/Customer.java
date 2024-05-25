@@ -8,13 +8,13 @@ public class Customer {
 
     public static int NEXT_CUSTOMER_ID = 1;
 
-    private HashSet<Customer> customers;
-    private int customerID;
+    private final HashSet<Customer> customers;
+    private final int customerID;
     private String name;
     private String address;
     private String postcode;
     private int phoneNumber;
-    private LocalDate dateOfBirth;
+    private final LocalDate dateOfBirth;
 
     /**
      * Constructor to create a Customer object.
@@ -194,7 +194,7 @@ public class Customer {
      *
      * @return The number of entries in the Customer HashSet
      */
-    private int getCustomerListSize() {
+    public int getCustomerListSize() {
         if (customers != null) {
             return customers.size();
         } else {

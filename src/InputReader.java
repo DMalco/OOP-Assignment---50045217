@@ -5,7 +5,7 @@ import java.util.Scanner;
  */
 public class InputReader {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructor to initialize the InputReader with a Scanner object.
