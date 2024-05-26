@@ -7,6 +7,7 @@ import java.util.Set;
 public class Bank {
     private HashSet<Customer> customers;
     private HashSet<Account> accounts;
+    private HashSet<Transaction> transactions;
 
     /**
      * Constructor to create a Bank object.
@@ -14,6 +15,7 @@ public class Bank {
     public Bank() {
         this.customers = new HashSet<>();
         this.accounts = new HashSet<>();
+        this.transactions = new HashSet<>();
     }
 
     /**
